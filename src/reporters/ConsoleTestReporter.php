@@ -41,8 +41,8 @@ abstract class ConsoleTestReporter extends TestReporter {
         'light_red' => '1;31',
         'purple' => '0;35',
         'light_purple' => '1;35',
-        'brown' => '0;33',
-        'yellow' => '1;33',
+        'yellow' => '0;33',
+        'light_yellow' => '1;33',
         'light_gray' => '0;37',
         'white' => '1;37'
     );
