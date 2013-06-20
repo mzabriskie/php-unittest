@@ -129,6 +129,7 @@ class TestRunner {
         }
 
 		$suiteStart = microtime(true);
+        $assertCount = 0;
 
         // Iterate all the test cases in the suite
         foreach ($suite as $temp) {
@@ -169,6 +170,7 @@ class TestRunner {
                     $errors[] = $e;
                 }
 
+                $assertCount += $testCase->count;
                 self::$currentTest = null;
                 self::$countRun++;
 
@@ -190,7 +192,7 @@ class TestRunner {
         self::$currentTestCase = null;
 
         $assertions = (object) array(
-            'length' => self::getCountRun(),
+            'length' => $assertCount,
             'failures' => self::getFailures(),
             'errors' => self::getErrors()
         );

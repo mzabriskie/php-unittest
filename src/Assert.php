@@ -26,53 +26,63 @@ THE SOFTWARE.
 
 abstract class Assert {
 
+    public $count = 0;
+
 	function fail($message) {
 		throw new AssertionError($message);
 	}
 
 	function assertTrue($condition, $message = null) {
+        $this->count++;
 		if ($condition !== true) {
 			$this->fail($this->assertMessage('true', $condition, $message));
 		}
 	}
 
 	function assertFalse($condition, $message = null) {
+        $this->count++;
 		if ($condition !== false) {
 			$this->fail($this->assertMessage('false', $condition, $message));
 		}
 	}
 
 	function assertEquals($expected, $actual, $message = null) {
+        $this->count++;
 		if ($expected != $actual) {
 			$this->fail($this->assertMessage($expected, $actual, $message));
 		}
 	}
 
     function assertNotEquals($expected, $actual, $message = null) {
+        $this->count++;
 		if ($expected == $actual) {
 			$this->fail($this->assertMessage($expected, $actual, $message));
 		}
 	}
 
     function assertNull($object, $message = null) {
+        $this->count++;
 		if ($object !== null) {
 			$this->fail($this->assertMessage('null', $object, $message));
 		}
 	}
 
     function assertNotNull($object, $message = null) {
+        $this->count++;
 		if ($object === null) {
 			$this->fail($this->assertMessage('not null', 'null', $message));
 		}
 	}
 
 	function assertSame($expected, $actual, $message = null) {
+        $this->count++;
 		if ($expected !== $actual) {
 			$this->fail($this->assertMessage($expected, $actual, $message));
 		}
 	}
 
 	function assertNotSame($expected, $actual, $message = null) {
+        $this->count++;
 		if ($expected === $actual) {
 			$this->fail($this->assertMessage($expected, $actual, $message));
 		}
