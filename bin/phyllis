@@ -1,3 +1,4 @@
+#!/usr/bin/php
 <?php
 
 /*
@@ -24,11 +25,11 @@ THE SOFTWARE.
 
 */
 
-require_once(dirname(__FILE__) . '/src/TestRunner.php');
+require_once(dirname(__FILE__) . '/../src/TestRunner.php');
 
 // Write the help text to the console
 function help() {
-    echo 'Usage: unittest testpath' . PHP_EOL . PHP_EOL .
+    echo 'Usage: phyllis testpath' . PHP_EOL . PHP_EOL .
             'Options:' . PHP_EOL .
             '   -h, --help         display this help and exit' . PHP_EOL .
             '   -v, --version      output version information and exit' . PHP_EOL;

@@ -1,4 +1,4 @@
-# php-unittest #
+# phyllis #
 
 Unit Testing for PHP
 
@@ -84,7 +84,7 @@ This is the Assertion API:
 
 Tests need to be placed in a directory called "test". The test runner will recursively look for any test classes located under this directory.
 
-	$ ./unittest /Workspace/MyProject
+	$ phyllis /Workspace/MyProject
 	
 This will run all tests located under the /Workspace/MyProject/test directory.
 
@@ -106,6 +106,6 @@ You can also test multiple modules at a time. Consider the following directory s
 	
 If we used the same command as before:
 
-	$ ./unittest /Workspace/MyProject
+	$ phyllis /Workspace/MyProject
 	
 The test runner will run all the test classes under ModuleA/test, ModuleB/test and ModuleC/test.
