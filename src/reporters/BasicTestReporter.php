@@ -46,7 +46,7 @@ class BasicTestReporter extends ConsoleTestReporter {
 
     public function done($assertions, $duration) {
         if (sizeof($assertions->failures) == 0 && sizeof($assertions->errors) == 0) {
-            echo PHP_EOL . $this->color('OK:', 'light_green') . ' ' . $assertions->length . ' assertions (' . $duration . ')' . PHP_EOL;
+            echo PHP_EOL . $this->color('OK:', 'green') . ' ' . $assertions->length . ' assertions (' . $duration . ')' . PHP_EOL;
         } else {
             $this->reportErrors($assertions->failures, 'failure');
             $this->reportErrors($assertions->errors, 'error');

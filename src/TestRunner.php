@@ -91,7 +91,7 @@ class TestRunner {
             );
         }
 
-        self::runTests($tests);
+        return self::runTests($tests);
     }
 
 	static function runTestCase(TestCase $testCase, $test = null) {
@@ -109,7 +109,7 @@ class TestRunner {
 			$tests['tests'][] = new ReflectionMethod($testCase, $test);
 		}
 
-		self::runTests(array($tests));
+		return self::runTests(array($tests));
 	}
 
 	private static function runTests($suite, $reporter = null) {
@@ -197,6 +197,8 @@ class TestRunner {
             'errors' => self::getErrors()
         );
         $reporter->done($assertions, self::formatDuration(floor($suiteEnd - $suiteStart) * 1000));
+
+        return sizeof(self::getFailures()) == 0 && sizeof(self::getErrors()) == 0 ? 0 : 1;
 	}
 
     private static function getTestsFromTestCase(TestCase $testCase) {

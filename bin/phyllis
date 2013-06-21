@@ -42,7 +42,7 @@ function version() {
 
 // Write an error message to the console
 function error($msg) {
-    echo 'Error: ' . $msg . PHP_EOL;
+    echo "\033[0;31mError: " . $msg . "\033[0m" . PHP_EOL;
 }
 
 // Get the index of a value from an array
@@ -80,24 +80,31 @@ function recursive_scandir($dir) {
     return $result;
 }
 
+/**
+ * Main entry point for running tests
+ *
+ * @param $argv array the args received from cli
+ * @param $argc int the size of $argv
+ * @return int the exit status code
+ */
 function main($argv, $argc) {
     $testpath = null; // TODO this should default to the current directory
     $reporter = null; // TODO this should be taken from args
 
     if ($argc == 1 || in_array('-h', $argv) || in_array('--help', $argv)) {
         help();
-        exit;
+        return 0;
     }
 
     if (in_array('-v', $argv) || in_array('--version', $argv)) {
         version();
-        exit;
+        return 0;
     }
 
     $testpath = $argv[1];
     if (!is_dir($testpath)) {
         error('"' . $testpath . '" is not a valid directory');
-        exit;
+        return 1;
     }
 
     // Scan testpath for test classes and include them
@@ -115,7 +122,7 @@ function main($argv, $argc) {
     }
 
     // Run test suite
-    TestRunner::runTestSuite($suite, $reporter);
+    return TestRunner::runTestSuite($suite, $reporter);
 }
 
-main($argv, $argc);
+exit(main($argv, $argc));
