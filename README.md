@@ -80,6 +80,22 @@ This is the Assertion API:
 
 ## Running Tests ##
 
+#### Running a specific TestCase
+
+You can run a specific <code>TestCase</code> by specifying the path to the test.
+
+    $ phyllis /Workspace/MyProject/test/FileTest
+
+This will run all tests in the <code>FileTest</code> class and assumes that the file is named <em>FileTest.php<em>.
+
+#### Running a specific test
+
+If you want to only run a specific test within a <code>TestCase</code> you can append the name of the test to the path.
+
+    $ phyllis /Workspace/MyProject/test/FileTest#testWriteFile
+
+This will run only the <code>testWriteFile</code> method in <code>FileTest</code>
+
 #### Testing a module
 
 Tests need to be placed in a directory called "test". The test runner will recursively look for any test classes located under this directory.

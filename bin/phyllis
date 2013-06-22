@@ -80,6 +80,48 @@ function recursive_scandir($dir) {
     return $result;
 }
 
+// Run a test suite
+function test_suite($testpath) {
+    // Scan testpath for test classes and include them
+    foreach (recursive_scandir($testpath) as $path) {
+        include_once($path);
+    }
+
+    // Loop classes and run tests
+    $suite = array();
+    foreach (get_declared_classes() as $cls) {
+        $ref = new ReflectionClass($cls);
+        if ($ref->isSubclassOf('TestCase')) {
+            $suite[] = $ref->newInstance();
+        }
+    }
+
+    // Run test suite
+    return TestRunner::runTestSuite($suite);
+}
+
+// Run a test case
+function test_case($testpath, $test) {
+    // Include test class
+    include_once($testpath . '.php');
+
+    // Normalize path and split it into pieces
+    $testpath = str_replace('\\', '\/', $testpath);
+    $parts = preg_split('/\//', $testpath);
+
+    // Get class instance
+    $cls = $parts[sizeof($parts) - 1];
+    $ref = new ReflectionClass($cls);
+    if (!$ref->isSubclassOf('TestCase')) {
+        error('"' . $cls . '" is not an instance of TestCase');
+        return 1;
+    }
+    $testcase = $ref->newInstance();
+
+    // Run test case
+    return TestRunner::runTestCase($testcase, $test);
+}
+
 /**
  * Main entry point for running tests
  *
@@ -101,28 +143,16 @@ function main($argv, $argc) {
         return 0;
     }
 
-    $testpath = $argv[1];
-    if (!is_dir($testpath)) {
+    list($testpath, $test) = preg_split('/#/', $argv[1]);
+
+    if (is_dir($testpath)) {
+        return test_suite($testpath);
+    } else if (is_file($testpath . '.php')) {
+        return test_case($testpath, $test);
+    } else {
         error('"' . $testpath . '" is not a valid directory');
         return 1;
     }
-
-    // Scan testpath for test classes and include them
-    foreach (recursive_scandir($testpath) as $path) {
-        include_once($path);
-    }
-
-    // Loop classes and run tests
-    $suite = array();
-    foreach (get_declared_classes() as $cls) {
-        $ref = new ReflectionClass($cls);
-        if ($ref->isSubclassOf('TestCase')) {
-            $suite[] = $ref->newInstance();
-        }
-    }
-
-    // Run test suite
-    return TestRunner::runTestSuite($suite, $reporter);
 }
 
 exit(main($argv, $argc));
