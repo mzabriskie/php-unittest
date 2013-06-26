@@ -25,8 +25,6 @@ THE SOFTWARE.
 
 */
 
-require_once(dirname(__FILE__) . '/../src/TestRunner.php');
-
 // Write the help text to the console
 function help() {
     echo 'Usage: phyllis testpath' . PHP_EOL . PHP_EOL .
@@ -130,6 +128,21 @@ function test_case($testpath, $test) {
  * @return int the exit status code
  */
 function main($argv, $argc) {
+    // Find path to phyllis source
+    $rootdir = null;
+    if ($_ENV['PHYLLIS_HOME'] != null) {
+        $rootdir = $_ENV['PHYLLIS_HOME'];
+    } else {
+        $rootdir = dirname(__FILE__) . '/../';
+    }
+
+    if (!is_file($rootdir . '/src/TestRunner.php')) {
+        error('Incorrect path to phyllis "' . $rootdir . '"');
+        return 1;
+    }
+
+    require_once($rootdir . '/src/TestRunner.php');
+
     $testpath = null; // TODO this should default to the current directory
     $reporter = null; // TODO this should be taken from args
 
