@@ -129,19 +129,19 @@ function test_case($testpath, $test) {
  */
 function main($argv, $argc) {
     // Find path to phyllis source
-    $rootdir = null;
+    $home = null;
     if ($_ENV['PHYLLIS_HOME'] != null) {
-        $rootdir = $_ENV['PHYLLIS_HOME'];
+        $home = $_ENV['PHYLLIS_HOME'];
     } else {
-        $rootdir = dirname(__FILE__) . '/../';
+        $home = dirname(__FILE__) . '/../';
     }
 
-    if (!is_file($rootdir . '/src/TestRunner.php')) {
-        error('Incorrect path to phyllis "' . $rootdir . '"');
+    if (!is_file($home . '/src/TestRunner.php')) {
+        error('Incorrect path to phyllis "' . $home . '"');
         return 1;
     }
 
-    require_once($rootdir . '/src/TestRunner.php');
+    require_once($home . '/src/TestRunner.php');
 
     $testpath = null; // TODO this should default to the current directory
     $reporter = null; // TODO this should be taken from args
