@@ -125,3 +125,13 @@ If we used the same command as before:
 	$ phyllis /Workspace/MyProject
 	
 The test runner will run all the test classes under ModuleA/test, ModuleB/test and ModuleC/test.
+
+## Installing phyllis ##
+
+First you will need to clone this repo. Once this has been done you need to make phyllis available to your system. Add the following line to <em>.bash_profile</em>
+
+	export PATH="/path/to/phyllis/bin:$PATH"
+	
+If you opt to place the phyllis executable elsewhere (say <em>/usr/bin</em>) you will need to add another system variable so phyllis knows where to find the source files.
+
+	export PHYLLIS_HOME="/path/to/phyllis"
