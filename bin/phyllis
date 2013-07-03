@@ -27,7 +27,7 @@ THE SOFTWARE.
 
 // Write the help text to the console
 function help() {
-    echo 'Usage: phyllis testpath' . PHP_EOL . PHP_EOL .
+    echo 'Usage: phyllis <testpath>' . PHP_EOL . PHP_EOL .
             'Options:' . PHP_EOL .
             '   -h, --help         display this help and exit' . PHP_EOL .
             '   -v, --version      output version information and exit' . PHP_EOL;
@@ -35,7 +35,7 @@ function help() {
 
 // Write the version to the console
 function version() {
-    echo '0.0.1-alpha' . PHP_EOL;
+    echo 'Phyllis 0.0.1' . PHP_EOL;
 }
 
 // Write an error message to the console
