@@ -89,6 +89,12 @@ abstract class Assert {
 	}
 
 	private function assertMessage($expected, $actual, $message) {
+        if (is_object($expected)) {
+            $expected = method_exists($expected, 'toString') ? $expected->toString() : '[object]';
+        }
+        if (is_object($actual)) {
+            $actual = method_exists($actual, 'toString') ? $actual->toString() : '[object]';
+        }
 		return ($message != null ? $message : 'Assertion failed: expected<' . $expected . '>, actual<' . $actual . '>');
 	}
 
