@@ -170,7 +170,6 @@ class TestRunner {
                     $errors[] = $e;
                 }
 
-                $assertCount += $testCase->count;
                 self::$currentTest = null;
                 self::$countRun++;
 
@@ -180,6 +179,8 @@ class TestRunner {
                 );
                 $reporter->testDone($test->getName(), $assertions);
             }
+
+            $assertCount += $testCase->count;
         }
 
         $suiteEnd = microtime(true);
