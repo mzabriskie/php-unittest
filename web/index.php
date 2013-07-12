@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
 /*
@@ -25,32 +24,18 @@ THE SOFTWARE.
 
 */
 
-// Write the help text to the console
-function help() {
-    echo 'Usage: phyllis <testpath>' . PHP_EOL . PHP_EOL .
-            'Options:' . PHP_EOL .
-            '   -h, --help         display this help and exit' . PHP_EOL .
-            '   -v, --version      output version information and exit' . PHP_EOL;
-}
-
-// Write the version to the console
-function version() {
-    echo 'Phyllis 0.0.1' . PHP_EOL;
-}
-
-// Write an error message to the console
+// Write an error message to the browser
 function error($msg) {
-    echo "\033[0;31mError: " . $msg . "\033[0m" . PHP_EOL;
+    echo '<div style="color:#c02000;">Error: ' . $msg . '</div>';
 }
 
 /**
  * Main entry point for running tests
  *
- * @param $argv array the args received from cli
- * @param $argc int the size of $argv
+ * @param $args array the args received from $_GET
  * @return int the exit status code
  */
-function main($argv, $argc) {
+function main ($args) {
     // Find path to phyllis source
     $home = null;
     if ($_ENV['PHYLLIS_HOME'] != null) {
@@ -67,20 +52,7 @@ function main($argv, $argc) {
     require_once($home . '/src/TestRunner.php');
     require_once($home . '/lib/runtime.php');
 
-    $testpath = null; // TODO this should default to the current directory
-    $reporter = null; // TODO this should be taken from args
-
-    if ($argc == 1 || in_array('-h', $argv) || in_array('--help', $argv)) {
-        help();
-        return 0;
-    }
-
-    if (in_array('-v', $argv) || in_array('--version', $argv)) {
-        version();
-        return 0;
-    }
-
-    list($testpath, $test) = preg_split('/#/', $argv[1]);
+    list($testpath, $test) = preg_split('/#/', $args['testpath']);
 
     if (is_dir($testpath)) {
         return test_suite($testpath);
@@ -92,4 +64,17 @@ function main($argv, $argc) {
     }
 }
 
-exit(main($argv, $argc));
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Phyllis Test Runner</title>
+    <meta charset="utf-8">
+</head>
+<body>
+
+    <?php main($_GET); ?>
+
+</body>
+</html>

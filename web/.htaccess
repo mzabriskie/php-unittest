@@ -1,0 +1,10 @@
+# Allow access to directory index.
+<FilesMatch "index\.php$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>
+
+# Set the default handler.
+<IfModule dir_module>
+    DirectoryIndex index.php
+</IfModule>
