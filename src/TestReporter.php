@@ -31,13 +31,13 @@ abstract class TestReporter {
     public static function factory($name) {
         $reporter = self::getInstance($name);
         if ($reporter == null) {
-            $reporter = self::getInstance('basic');
+            $reporter = self::getInstance(PHP_SAPI == 'cli' ? 'cli' : 'web');
         }
-
         return $reporter;
     }
 
     private static function getInstance($name) {
+        if ($name == null) return null;
         $className = ucfirst($name) . 'TestReporter';
 
         if (!in_array($name, self::$reporters)) {

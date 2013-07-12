@@ -26,7 +26,7 @@ THE SOFTWARE.
 
 require_once(dirname(__FILE__) . '/../TestReporter.php');
 
-abstract class ConsoleTestReporter extends TestReporter {
+abstract class BaseCliTestReporter extends TestReporter {
 
     private static $colors = array(
         'black' => '0;30',

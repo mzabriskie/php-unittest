@@ -24,9 +24,9 @@ THE SOFTWARE.
 
 */
 
-require_once('ConsoleTestReporter.php');
+require_once('BaseCliTestReporter.php');
 
-class BasicTestReporter extends ConsoleTestReporter {
+class CliTestReporter extends BaseCliTestReporter {
 
     public function suiteStart($name) {
         echo PHP_EOL . $this->bold($name) . PHP_EOL;
