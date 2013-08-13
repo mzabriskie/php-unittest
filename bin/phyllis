@@ -35,7 +35,7 @@ function help() {
 
 // Write the version to the console
 function version() {
-    echo 'Phyllis 0.0.1' . PHP_EOL;
+    echo 'Phyllis 0.1.14' . PHP_EOL;
 }
 
 // Write an error message to the console
