@@ -28,7 +28,7 @@ function recursive_scandir($dir) {
 }
 
 // Run a test suite
-function test_suite($testpath) {
+function test_suite($testpath, $reporter) {
     // Scan testpath for test classes and include them
     foreach (recursive_scandir($testpath) as $path) {
         include_once($path);
@@ -44,11 +44,11 @@ function test_suite($testpath) {
     }
 
     // Run test suite
-    return TestRunner::runTestSuite($suite);
+    return TestRunner::runTestSuite($suite, $reporter);
 }
 
 // Run a test case
-function test_case($testpath, $test) {
+function test_case($testpath, $test, $reporter) {
     // Include test class
     include_once($testpath . '.php');
 
@@ -66,5 +66,5 @@ function test_case($testpath, $test) {
     $testcase = $ref->newInstance();
 
     // Run test case
-    return TestRunner::runTestCase($testcase, $test);
+    return TestRunner::runTestCase($testcase, $test, $reporter);
 }

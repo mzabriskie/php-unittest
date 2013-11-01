@@ -81,7 +81,7 @@ class TestRunner {
         return self::$currentTest;
     }
 
-    static function runTestSuite($suite) {
+    static function runTestSuite($suite, $reporter = null) {
         $tests = array();
 
         foreach($suite as $testCase) {
@@ -91,10 +91,10 @@ class TestRunner {
             );
         }
 
-        return self::runTests($tests);
+        return self::runTests($tests, $reporter);
     }
 
-	static function runTestCase(TestCase $testCase, $test = null) {
+	static function runTestCase(TestCase $testCase, $test = null, $reporter = null) {
         $tests = array(
             'testCase' => $testCase,
             'tests' => array()
@@ -109,7 +109,7 @@ class TestRunner {
 			$tests['tests'][] = new ReflectionMethod($testCase, $test);
 		}
 
-		return self::runTests(array($tests));
+		return self::runTests(array($tests), $reporter);
 	}
 
 	private static function runTests($suite, $reporter = null) {

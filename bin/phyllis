@@ -29,6 +29,7 @@ THE SOFTWARE.
 function help() {
     echo 'Usage: phyllis <testpath>' . PHP_EOL . PHP_EOL .
             'Options:' . PHP_EOL .
+            '   -r, --reporter     reporter to be used' . PHP_EOL .
             '   -h, --help         display this help and exit' . PHP_EOL .
             '   -v, --version      output version information and exit' . PHP_EOL;
 }
@@ -65,27 +66,30 @@ function main($argv, $argc) {
     }
 
     require_once($home . '/src/TestRunner.php');
+    require_once($home . '/lib/CliArgParser.php');
     require_once($home . '/lib/runtime.php');
 
-    $testpath = null; // TODO this should default to the current directory
-    $reporter = null; // TODO this should be taken from args
+    $parser = new CliArgParser($argv);
 
-    if ($argc == 1 || in_array('-h', $argv) || in_array('--help', $argv)) {
+    if ($argc == 1 || $parser->hasOption('h', 'help')) {
         help();
         return 0;
     }
 
-    if (in_array('-v', $argv) || in_array('--version', $argv)) {
+    if ($parser->hasOption('v', 'version')) {
         version();
         return 0;
     }
 
-    list($testpath, $test) = preg_split('/#/', $argv[1]);
+    $testpath = null; // TODO this should default to the current directory
+    $reporter = $parser->getValue('r', 'reporter');
+
+    list($testpath, $test) = preg_split('/#/', $parser->getValue(-1));
 
     if (is_dir($testpath)) {
-        return test_suite($testpath);
+        return test_suite($testpath, $reporter);
     } else if (is_file($testpath . '.php')) {
-        return test_case($testpath, $test);
+        return test_case($testpath, $test, $reporter);
     } else {
         error('"' . $testpath . '" is not a valid directory');
         return 1;
