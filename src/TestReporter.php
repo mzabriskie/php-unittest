@@ -54,7 +54,7 @@ abstract class TestReporter {
 
     abstract public function suiteStart($name);
 
-    abstract public function suiteDone($name);
+    abstract public function suiteDone($name, $assertions);
 
     abstract public function testStart($name);
 

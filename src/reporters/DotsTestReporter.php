@@ -29,10 +29,14 @@ require_once('BaseCliTestReporter.php');
 class DotsTestReporter extends BaseCliTestReporter {
 
     public function suiteStart($name) {
-        echo PHP_EOL . $this->bold($name);
+        echo PHP_EOL . 'Testing ' . $name;
     }
 
-    public function suiteDone($name) {}
+    public function suiteDone($name, $assertions) {
+        if (sizeof($assertions->failures) == 0) {
+            echo $this->color('OK', 'green');
+        }
+    }
 
     public function testStart($name) {}
 
@@ -40,7 +44,7 @@ class DotsTestReporter extends BaseCliTestReporter {
         if (sizeof($assertions->failures) == 0 && sizeof($assertions->errors) == 0) {
             echo '.';
         } else {
-            echo $this->color('.', 'red');
+            echo $this->color('F', 'red');
         }
     }
 

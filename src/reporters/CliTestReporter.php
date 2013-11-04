@@ -32,7 +32,7 @@ class CliTestReporter extends BaseCliTestReporter {
         echo PHP_EOL . $this->bold($name) . PHP_EOL;
     }
 
-    public function suiteDone($name) {}
+    public function suiteDone($name, $assertions) {}
 
     public function testStart($name) {}
 

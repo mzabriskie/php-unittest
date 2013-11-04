@@ -138,6 +138,8 @@ class TestRunner {
             self::$currentTestCase = $testCase;
 
             $reporter->suiteStart(get_class($testCase));
+            $suiteFailures = array();
+            $suiteErrors = array();
 
             // Iterate all the tests in the test case
             foreach ($tests as $test) {
@@ -173,12 +175,21 @@ class TestRunner {
                 self::$currentTest = null;
                 self::$countRun++;
 
+                $suiteFailures = array_merge($suiteFailures, $failures);
+                $suiteErrors = array_merge($suiteErrors, $errors);
+
                 $assertions = (object) array(
                     'failures' => $failures,
                     'errors' => $errors
                 );
                 $reporter->testDone($test->getName(), $assertions);
             }
+
+            $assertions = (object) array(
+                'failures' => $suiteFailures,
+                'errors' => $suiteErrors
+            );
+            $reporter->suiteDone(get_class($testCase), $assertions);
 
             $assertCount += $testCase->count;
         }

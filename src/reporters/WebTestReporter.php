@@ -32,7 +32,7 @@ class WebTestReporter extends BaseWebTestReporter {
         echo '<div>' . $this->bold($name) . '</div>';
     }
 
-    public function suiteDone($name) {}
+    public function suiteDone($name, $assertions) {}
 
     public function testStart($name) {}
 
